@@ -1,4 +1,4 @@
-# Compiler
+# Compiler (gcc/g++)
 CC = gcc
 # Clean
 RM = rm -f
@@ -6,13 +6,13 @@ RM = rm -f
 # Compiler flags
 CFLAGS = -Wall -Werror
 # Include paths to header files outside /usr/include. Preface paths with 'I'.
-# Ex: Path '/home/include/' via '-I/home/include/'
+# Ex: Path '/home/include/' becomes '-I/home/include/'
 INCLUDES =
 # Library paths outside /usr/lib. Preface paths with 'L'.
-# Ex: Path '/home/libs/' via '-L/home/libs'
+# Ex: Path '/home/libs/' becomes '-L/home/libs'
 LFLAGS =
 # Libraries to link into executable. Preface library name with an 'l'.
-# Ex: Link 'libname' via '-llibname'.
+# Ex: Link 'libname' becomes '-llibname'.
 Libs =
 
 # C source files
@@ -20,7 +20,7 @@ SRCS =
 # Define object files with suffix replacement
 # $(names:suf1=suf2) -> for each word in 'names' replace 'suf1' with 'suf2'
 OBJS = $(SRCS:.c=.o)
-# Target (binary)
+# Executable (binary)
 BIN =
 
 # Define targets that will always run independent of file system state.
@@ -37,7 +37,8 @@ all:	$(BIN)
 $(BIN): $(OBJS)
 		$(CC) $(CFLAGS) $(INCLUDES) -o $(BIN) $(OBJS) $(LFLAGS) $(LIBS)
 
-# Build objects from source with suffix replacement and automatic variables
+# Build objects from source with suffix replacement and automatic variables.
+# Change '.c' to '.cpp' for compilation of CPP files.
 # $<: name of the prerequisite of the rule (source file)
 # $@: name of target of the rule (object file)
 .c.o:
