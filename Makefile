@@ -1,0 +1,48 @@
+# Compiler
+CC = gcc
+# Clean
+RM = rm -f
+
+# Compiler flags
+CFLAGS = -Wall -Werror
+# Include paths to header files outside /usr/include. Preface paths with 'I'.
+# Ex: Path '/home/include/' via '-I/home/include/'
+INCLUDES =
+# Library paths outside /usr/lib. Preface paths with 'L'.
+# Ex: Path '/home/libs/' via '-L/home/libs'
+LFLAGS =
+# Libraries to link into executable. Preface library name with an 'l'.
+# Ex: Link 'libname' via '-llibname'.
+Libs =
+
+# C source files
+SRCS =
+# Define object files with suffix replacement
+# $(names:suf1=suf2) -> for each word in 'names' replace 'suf1' with 'suf2'
+OBJS = $(SRCS:.c=.o)
+# Target (binary)
+BIN =
+
+# Define targets that will always run independent of file system state.
+# Also explicitly tells Make utility these names are not associated with files.
+# Common .PHONY targets: all, install, clean, distclean, TAGS, info, check
+.PHONY: all
+.PHONY: clean
+
+# Define 'all' target.
+# Listing executables to create should be sufficient here.
+all:	$(BIN)
+
+# Define executable target(s)
+$(BIN): $(OBJS)
+		$(CC) $(CFLAGS) $(INCLUDES) -o $(BIN) $(OBJS) $(LFLAGS) $(LIBS)
+
+# Build objects from source with suffix replacement and automatic variables
+# $<: name of the prerequisite of the rule (source file)
+# $@: name of target of the rule (object file)
+.c.o:
+		$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+# Define 'clean' target
+clean:
+		$(RM) *.o $(BIN)
